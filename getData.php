@@ -54,7 +54,7 @@ function utf8_converter($tcodes)
 function createJson($tcodes)
 {
     $jsonencoded = json_encode($tcodes,JSON_UNESCAPED_UNICODE);
-    $fh = fopen("SAPgit/tcodes.json", 'w');
+    $fh = fopen("tcodes.json", 'w');
     fwrite($fh, $jsonencoded);
     fclose($fh);
     echo "Archivo JSON Creado";
