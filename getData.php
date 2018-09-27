@@ -57,7 +57,7 @@ function getData($conexion)
            $data_t['table'] = $rowTa['table'];
            $data_t['table_descripcion'] = $rowTa['description_table'];
            $data_t['submodulo'] = $rowTa['submodulo'];
-           $data_t['descripcion_submodulo'] = $rowT['descripcion_submodulo'];
+           $data_t['descripcion_submodulo'] = $rowTa['descripcion_submodulo'];
            $data_t['modulo'] = $rowTa['modulo'];
            $data_t['modulo_descipcion'] = $rowTa['descripcion'];
         
