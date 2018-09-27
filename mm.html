@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAP Dictionary</title>
+</head>
+<body>
+        <script type="text/javascript">
+            $(document).ready(function() 
+            {
+        $.ajax({
+                    url: "tcodes.json",
+                    type: "GET",
+                    async: true,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function() 
+                        {
+                          $('#post').html("Cargando post, por favor, espere");
+                        },
+
+                    success: function(response) 
+                    {
+                        var longitud = response.length;
+                        var datos = new Array();
+                        datos = response;
+
+                        for(var i=0; i<longitud; i++)
+                           {
+                                var tcode = response[i].tcode;
+                                var tcode_descripcion = response[i].tcode_descripcion;
+
+                                var contenido =
+                                    "<tr>" +
+                                    "<td align='center'>" + tcode + "</td>" +
+                                    "<td align='center'>" + tcode_descripcion + "</td>" +
+                                    "</tr>";
+                                $("#userTable").append(contenido);
+                            }
+
+                            
+                    }
+                });
+            });
+  </script> 
+<br>
+<div class="container" style="overflow:scroll; height:650px;">
+        <table id="userTable" border="3" class="table table-hover">
+           <tr>
+            <th><center>T-code</center></th>
+            <th><center>Description</center></th>
+           </tr>
+        </table>
+     </div>
+</body>
+</html>
