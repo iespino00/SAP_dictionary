@@ -88,7 +88,7 @@ function utf8_converter($tcodes,$tables)
     createJson($tcodes,$tables);
 }
 
-function createJson($tcodes)
+function createJson($tcodes,$tables)
 {
     $jsonencoded = json_encode($tcodes,JSON_UNESCAPED_UNICODE);
     $fh = fopen("tcodes.json", 'w');
