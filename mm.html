@@ -47,7 +47,7 @@
               <center><p><a class="btn btn-lg btn-success" role="button" onclick="getTcodes()">T-codes</a></p></center>
           </div>
           <div class="col-lg-6">
-              <center><p><a class="btn btn-lg btn-success" role="button">Transactions</a></p></center>
+              <center><p><a class="btn btn-lg btn-success" role="button"  onclick="getTransactions()">Transactions</a></p></center>
           </div>
       </div>
     </div> <!-- /container -->
@@ -90,9 +90,50 @@
               }
           });
           document.getElementById('contenido').style.display='block';
-          document.getElementById('divTcodes').style.display='block';
+         
           $("#lbTitulo").text("T-code");
     }
+
+        function getTransactions()
+    {
+      $.ajax({
+              url: "tables.json",
+              type: "GET",
+              async: true,
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              beforeSend: function() 
+                  {
+                    $('#post').html("Cargando post, por favor, espere");
+                  },
+
+              success: function(response) 
+              {
+                  var longitud = response.length;
+                  var datos = new Array();
+                  datos = response;
+
+                  for(var i=0; i<longitud; i++)
+                     {
+                          var table = response[i].table;
+                          var table_descripcion = response[i].table_descripcion;
+                          var sub = response[i].submodulo;
+                          var sub_descrip = response[i].descripcion_submodulo;
+                          var contenido =
+                              "<tr>" +
+                              "<td align='center'>" + table + "</td>" +
+                              "<td align='center'>" + table_descripcion + "</td>" +
+                              "<td align='center'>" + sub + " - "+ sub_descrip +"</td>" +
+                              "</tr>";
+                          $("#tcodesTable").append(contenido);
+                      }         
+              }
+          });
+          document.getElementById('contenido').style.display='block';
+        
+          $("#lbTitulo").text("Transaction");
+    }
+
       $(document).ready(function() 
       {
         console.log('Cargando...')
