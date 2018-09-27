@@ -43,17 +43,20 @@
       </div>
 
       <div class="row marketing">
-        
+          <div class="col-lg-6">
+              <center><p><a class="btn btn-lg btn-success" role="button" onclick="getTcodes()">T-codes</a></p></center>
+          </div>
+          <div class="col-lg-6">
+              <center><p><a class="btn btn-lg btn-success" role="button">Transactions</a></p></center>
+          </div>
       </div>
-
-
-
     </div> <!-- /container -->
 
     <script type="text/javascript">
-      $(document).ready(function() 
-      {
-  $.ajax({
+
+    function getTcodes()
+    {
+      $.ajax({
               url: "tcodes.json",
               type: "GET",
               async: true,
@@ -83,25 +86,32 @@
                               "<td align='center'>" + sub + " - "+ sub_descrip +"</td>" +
                               "</tr>";
                           $("#tcodesTable").append(contenido);
-                      }
-
-                      
+                      }         
               }
           });
+          document.getElementById('contenido').style.display='block';
+          document.getElementById('divTcodes').style.display='block';
+          $("#lbTitulo").text("T-code");
+    }
+      $(document).ready(function() 
+      {
+        console.log('Cargando...')
       });
 </script> 
 <br>
+
+<div id="contenido" style="display:none">
  <center>
     <div >
        <label><strong>Search:</strong></label><input type="text" class="form-control pull-right" style="width:20%" id="search" placeholder="Type to search table...">
        <br>
     </div>
     
-   <div style="width:80%">
+   <div style="width:80%" id="divTcodes">
       <div style="overflow:scroll; height:550px;">
           <table id="tcodesTable" border="3" class="table table-hover">
             <tr>
-              <th><center>T-code</center></th>
+              <th><center><label id="lbTitulo">Title</label></center></th>
               <th><center>Description</center></th>
               <th><center>Submodule</center></th>
             </tr>
@@ -109,6 +119,7 @@
       </div>
    </div>
 </center>
+</div>
 
     <script>
       var year = (new Date).getFullYear();
