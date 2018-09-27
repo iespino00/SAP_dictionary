@@ -47,7 +47,7 @@
               <center><p><a class="btn btn-lg btn-success" role="button" onclick="getTcodes()">T-codes</a></p></center>
           </div>
           <div class="col-lg-6">
-              <center><p><a class="btn btn-lg btn-success" role="button"  onclick="getTransactions()">Transactions</a></p></center>
+              <center><p><a class="btn btn-lg btn-success" role="button"  onclick="getTransactions()">Tables</a></p></center>
           </div>
       </div>
     </div> <!-- /container -->
@@ -56,6 +56,7 @@
 
     function getTcodes()
     {
+      document.getElementById('divTTable').style.display='none';
       $.ajax({
               url: "tcodes.json",
               type: "GET",
@@ -90,12 +91,14 @@
               }
           });
           document.getElementById('contenido').style.display='block';
+          document.getElementById('divTcodes').style.display='block';
          
           $("#lbTitulo").text("T-code");
     }
 
-        function getTransactions()
+   function getTransactions()
     {
+      document.getElementById('divTcodes').style.display='none';
       $.ajax({
               url: "tables.json",
               type: "GET",
@@ -125,13 +128,14 @@
                               "<td align='center'>" + table_descripcion + "</td>" +
                               "<td align='center'>" + sub + " - "+ sub_descrip +"</td>" +
                               "</tr>";
-                          $("#tcodesTable").append(contenido);
+                          $("#tTable").append(contenido);
                       }         
               }
           });
           document.getElementById('contenido').style.display='block';
-        
-          $("#lbTitulo").text("Transaction");
+          document.getElementById('divTTable').style.display='block';
+          $("#")
+          $("#lbTTable").text("Transaction");
     }
 
       $(document).ready(function() 
@@ -148,11 +152,22 @@
        <br>
     </div>
     
-   <div style="width:80%" id="divTcodes">
+   <div style="width:80%" id="divTcodes" style="display:none">
       <div style="overflow:scroll; height:550px;">
           <table id="tcodesTable" border="3" class="table table-hover">
             <tr>
               <th><center><label id="lbTitulo">Title</label></center></th>
+              <th><center>Description</center></th>
+              <th><center>Submodule</center></th>
+            </tr>
+          </table>
+      </div>
+   </div>
+   <div style="width:80%" id="divTTable" style="display:none">
+      <div style="overflow:scroll; height:550px;">
+          <table id="tTable" border="3" class="table table-hover">
+            <tr>
+              <th><center><label id="lbTTable">Title</label></center></th>
               <th><center>Description</center></th>
               <th><center>Submodule</center></th>
             </tr>
@@ -182,6 +197,13 @@
             _this = this;
             // Show only matching TR, hide rest of them
             $.each($("#tcodesTable tbody tr"), function() 
+                  {
+                    if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                    $(this).hide();
+                    else
+                    $(this).show();
+                 });
+            $.each($("#tTable tbody tr"), function() 
                   {
                     if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
                     $(this).hide();
