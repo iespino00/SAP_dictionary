@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+</head>
+<body>
+        <script type="text/javascript">
+            $(document).ready(function() 
+            {
+        $.ajax({
+                    url: "empleados.json",
+                    type: "GET",
+                    async: true,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function() 
+                        {
+                          $('#post').html("Cargando post, por favor, espere");
+                        },
+
+                    success: function(response) 
+                    {
+                        var longitud = response.length;
+                        var datos = new Array();
+                        datos = response;
+                        
+                   /*
+                        Object.keys(datos).forEach(function (key) 
+                                { var nam = datos[key]['nombre'];
+                                    console.log(key,nam);
+                                });   */
+                                
+                        for(var i=0; i<longitud; i++)
+                           {
+                                var nomina = response[i].nomina;
+                                var tipo_empleado = response[i].tipo_empleado;
+                                var nombre = response[i].nombre;
+                                var estructura = response[i].estructura;
+
+                                var contenido =
+                                    "<tr>" +
+                                    "<td align='center'>" + nomina + "</td>" +
+                                    "<td align='center'>" + tipo_empleado + "</td>" +
+                                    "<td align='center'>" + nombre + "</td>" +
+                                    "<td align='center'>" + estructura + "</td>" +
+                                    "</tr>";
+                                $("#userTable").append(contenido);
+                            }
+
+                            
+                    }
+                });
+            });
+  </script> 
+<br>
+<div class="container" style="overflow:scroll; height:650px;">
+        <table id="userTable" border="3" class="table table-hover">
+           <tr>
+            <th><center>Nómina</center></th>
+            <th><center>Tipo Empleado</center></th>
+            <th><center>Nombre</center></th>
+            <th><center>Estructura</center></th>
+           </tr>
+        </table>
+     </div>
+</body>
+</html>
